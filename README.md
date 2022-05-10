@@ -1,10 +1,10 @@
 <div align="center"><img src="public/icons.png" height="80px"></div>
 
-# [Aggregation app](https://aggregationapp.netlify.app/)
+# [Aggregation App](https://aggregationapp.netlify.app/)
 
 `JavaScript` `React` `Frontend`
 
-Simple Aggregation app using GitHub APIs.
+Simple Aggregation App using GitHub APIs.
 
 ## Problem Statement
 
@@ -49,6 +49,7 @@ Home Page
 - Handle multiple inputs as usernames and/or organization names
 - Fetch [GitHub Rest API](https://docs.github.com/en/rest/guides/getting-started-with-the-rest-api) endpoints for `users` and `orgs`
 - `Set` data structure and sort algorithm
+- Style with CSS (no Bootstrap or any UI/UX framework or library)
 
 ## Website URL and QR Code
 
