@@ -42,8 +42,8 @@ body{
   justify-content: center;
   align-items: center;
   background-color: #FAFBFC22;
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(9px);
+  -webkit-backdrop-filter: blur(9px);
 }
 
 .searchbar input{
@@ -235,7 +235,7 @@ body{
 
 .repo-overview{
   display: flex;
-  width: 77.5%;
+  width: 80%;
   justify-content: space-between;
 }
 
@@ -249,8 +249,8 @@ body{
 	padding: 15px;
   margin: 0px 0 0 -15px;
   background-color: #FAFBFC22;
-  backdrop-filter: blur(6px);
-  -webkit-backdrop-filter: blur(6px);
+  backdrop-filter: blur(7px);
+  -webkit-backdrop-filter: blur(7px);
 }
 
 .modal > div:nth-child(1){
@@ -259,6 +259,7 @@ body{
 }
 
 .modal > div:nth-child(2){
+  width: 80%;
   display: flex;
   justify-content: space-between;
 }
@@ -360,6 +361,7 @@ body{
 
   .repo-item{
     width: 100%;
+    margin: 17px 15px;
   }
 
   .modal{
