@@ -233,14 +233,14 @@ export default class UserReposComponent extends Component {
               <div>{description}</div>
               <div>
                 <div>
-                  <div><i class="fas fa-user"></i> {type}</div>
-                  <div><i class="fas fa-star"></i> {stars}</div>
-                  <div><i class="fas fa-code-branch"></i> {forks}</div>
+                  <div><i className="fas fa-user"></i> {type}</div>
+                  <div><i className="fas fa-star"></i> {stars}</div>
+                  <div><i className="fas fa-code-branch"></i> {forks}</div>
                 </div>
                 <div>
-                  <div><i class="fas fa-code"></i> {language}</div>
-                  <div><i class="fas fa-eye"></i> {watchs}</div>
-                  <div><i class="fas fa-dot-circle"></i> {issues}</div>
+                  <div><i className="fas fa-code"></i> {language}</div>
+                  <div><i className="fas fa-eye"></i> {watchs}</div>
+                  <div><i className="fas fa-dot-circle"></i> {issues}</div>
                 </div>
               </div>
             </div>
