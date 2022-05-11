@@ -5,7 +5,7 @@ html{
 body{
   padding: 0;
   margin: 0;
-  background-color: #FBFCFD;
+  background-color: #FAFBFC;
 }
 
 .line{
@@ -193,7 +193,7 @@ body{
   height: max-content;
   background-color: #FFF;
   border-radius: 10px;
-  margin: 13.5px;
+  margin: 15px;
   box-shadow: 0 2px 12px #00000012;
   box-sizing: border-box;
   padding: 15px;
@@ -235,8 +235,45 @@ body{
 
 .repo-overview{
   display: flex;
-  width: 75%;
+  width: 77.5%;
   justify-content: space-between;
+}
+
+.modal{
+  width: 345px;
+  box-sizing: border-box;
+  display: none;
+	position: absolute;
+  box-shadow: 0 3px 13px #00000012;
+	border-radius: 10px;
+	padding: 15px;
+  margin: 0px 0 0 -15px;
+  background-color: #FAFBFC22;
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+}
+
+.modal > div:nth-child(1){
+  text-align: left;
+  margin-bottom: 5px;
+}
+
+.modal > div:nth-child(2){
+  display: flex;
+  justify-content: space-between;
+}
+
+.modal > div > div{
+  text-align: left;
+  line-height: 25px;
+}
+
+.modal > div > div i{
+  width: 20px;
+}
+
+.repo-item:hover .modal {
+	display: block;
 }
 
 .scrollup{
@@ -323,6 +360,10 @@ body{
 
   .repo-item{
     width: 100%;
+  }
+
+  .modal{
+    width: calc(100% - 40px - 30px);
   }
 
   .scrollup{
