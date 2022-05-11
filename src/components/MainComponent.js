@@ -51,7 +51,7 @@ function Main(){
         <button onClick={() => setSortcriteria('original')} className="ml-md-1">Original</button>
       </div>
       <div className="sortinfo">
-        Current sort criteria: <span className="sortcrit">{sortcriteria.toUpperCase()}</span><br/><span>{(sortcriteria == "stars")?"All repositories are ranked base on total stars count.":(sortcriteria == "popular")?"All repositories are ranked base on sum of stars, watchers and forks count.":"Repositories (excluding forks) are ranked base on sum of stars, watchers and forks count."}</span>
+        Current sort criterion: <span className="sortcrit">{sortcriteria.toUpperCase()}</span><br/><span>{(sortcriteria == "stars")?"All repositories are ranked base on total stars count.":(sortcriteria == "popular")?"All repositories are ranked base on sum of stars, watchers and forks count.":"Repositories (excluding forks) are ranked base on sum of stars, watchers and forks count."}</span>
       </div>
     </div>
     <div className="content">

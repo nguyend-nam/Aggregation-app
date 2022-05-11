@@ -3,8 +3,8 @@ import React, {Component} from "react";
 export default class UserReposComponent extends Component {
   state = {
     loading: true,
-    org: [],
-    totalorg: []
+    totalorg: [], // for storing all repos
+    org: [] // for rendering repos that fit sort criterion
   };
 
   // Lifecycle functions
@@ -17,6 +17,7 @@ export default class UserReposComponent extends Component {
     }
   }
 
+  // Firstly fetch API endpoint for users
   async fetchorg() {
     let apilist = [];
     let idlist = new Set();
@@ -50,6 +51,7 @@ export default class UserReposComponent extends Component {
         }
     	)
       .catch((error) => { console.log(error) });
+      // If no users found start fetching API endpoint for organizations
       if(found == false){
         await fetch('https://api.github.com/orgs/' + namelist[i] + '/repos')
       	.then(function(resp) {
@@ -85,9 +87,7 @@ export default class UserReposComponent extends Component {
     if(this.props.sort == "stars"){
       let n = apilist.length;
       for (let i = 1; i < n; i++) {
-          // Choosing the first element in our unsorted subarray
           let current = apilist[i];
-          // The last element of our sorted subarray
           let j = i-1;
           while ((j > -1) && (current["stargazers_count"] > apilist[j]["stargazers_count"])) {
               apilist[j+1] = apilist[j];
@@ -99,9 +99,7 @@ export default class UserReposComponent extends Component {
     if(this.props.sort == "popular"){
       let n = apilist.length;
       for (let i = 1; i < n; i++) {
-          // Choosing the first element in our unsorted subarray
           let current = apilist[i];
-          // The last element of our sorted subarray
           let j = i-1;
           while ((j > -1) && (
             (current["stargazers_count"] + current["forks_count"] + current["watchers_count"]) > (apilist[j]["stargazers_count"] + apilist[j]["forks_count"] + apilist[j]["watchers_count"]))
@@ -125,9 +123,7 @@ export default class UserReposComponent extends Component {
       }
       let m = newapilist.length;
       for (let i = 1; i < m; i++) {
-          // Choosing the first element in our unsorted subarray
           let current = newapilist[i];
-          // The last element of our sorted subarray
           let j = i-1;
           while ((j > -1) && (
             (current["stargazers_count"] + current["forks_count"] + current["watchers_count"]) > (newapilist[j]["stargazers_count"] + newapilist[j]["forks_count"] + newapilist[j]["watchers_count"]))
@@ -148,9 +144,7 @@ export default class UserReposComponent extends Component {
     if(this.props.sort == "stars"){
       let n = apilist.length;
       for (let i = 1; i < n; i++) {
-          // Choosing the first element in our unsorted subarray
           let current = apilist[i];
-          // The last element of our sorted subarray
           let j = i-1;
           while ((j > -1) && (current["stargazers_count"] > apilist[j]["stargazers_count"])) {
               apilist[j+1] = apilist[j];
@@ -162,9 +156,7 @@ export default class UserReposComponent extends Component {
     if(this.props.sort == "popular"){
       let n = apilist.length;
       for (let i = 1; i < n; i++) {
-          // Choosing the first element in our unsorted subarray
           let current = apilist[i];
-          // The last element of our sorted subarray
           let j = i-1;
           while ((j > -1) && (
             (current["stargazers_count"] + current["forks_count"] + current["watchers_count"]) > (apilist[j]["stargazers_count"] + apilist[j]["forks_count"] + apilist[j]["watchers_count"]))
@@ -188,9 +180,7 @@ export default class UserReposComponent extends Component {
       }
       let m = newapilist.length;
       for (let i = 1; i < m; i++) {
-          // Choosing the first element in our unsorted subarray
           let current = newapilist[i];
-          // The last element of our sorted subarray
           let j = i-1;
           while ((j > -1) && (
             (current["stargazers_count"] + current["forks_count"] + current["watchers_count"]) > (newapilist[j]["stargazers_count"] + newapilist[j]["forks_count"] + newapilist[j]["watchers_count"]))
@@ -228,13 +218,30 @@ export default class UserReposComponent extends Component {
         if(org["language"] != null) language = org["language"];
         var stars = org["stargazers_count"];
         var forks = org["forks_count"];
+        var watchs = org["watchers_count"];
         var isFork = org["fork"];
+        var type = org["owner"]["type"];
+        var issues = org["open_issues"];
 
         return(
           <div key={org["id"]} className="repo-item">
             <div className="repo-title">
               <h3><a href={url} target="_blank">{owner}/{reponame}</a></h3>
               <span>{visibility}</span>
+            </div>
+            <div className="modal">
+              <div>
+              <div>
+                <div><i class="fas fa-user"></i> {type}</div>
+                <div><i class="fas fa-star"></i> {stars}</div>
+                <div><i class="fas fa-code-branch"></i> {forks}</div>
+              </div>
+              <div>
+                <div><i class="fas fa-code"></i> {language}</div>
+                <div><i class="fas fa-eye"></i> {watchs}</div>
+                <div><i class="fas fa-dot-circle"></i> {issues}</div>
+              </div>
+              </div>
             </div>
             <div className="repo-description">{description}</div>
             <div className="repo-overview">
