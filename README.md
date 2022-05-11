@@ -43,6 +43,12 @@ Home Page
                                                      -> Repo Modal
 ```
 
+## Sort Criteria
+
+- **Stars**: All listed repositories are ranked base on total stars count
+- **Popular**: All listed repositories are ranked base on sum of stars, watchers and forks count
+- **Original**: Listed repositories (excluding forks) are ranked base on sum of stars, watchers and forks count
+
 ## Practices
 
 - Hook (update state of sort criterion)
