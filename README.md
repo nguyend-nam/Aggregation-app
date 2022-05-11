@@ -31,14 +31,17 @@ App
               |
               |__ Repo list
                           |__ Repos
+                                  |__ Repo Modal
 ```
 
 ## Views Flow
 
 ```
 Home Page 
--> Input Name(s)   -> Repo List     -> Select Criterion -> (Updated) Repo List
--> Select Criterion -> Input Name(s) -> Repo List
+-> Input Name(s)    -> Repo List   ->   Select Criterion -> (Updated) Repo List
+-> Select Criterion ->           Input Name(s)           -> Repo List
+                                                         -> Repo Modal
+                                         
 ```
 
 ## Practices
@@ -49,7 +52,7 @@ Home Page
 - Handle multiple inputs as usernames and/or organization names
 - Fetch [GitHub Rest API](https://docs.github.com/en/rest/guides/getting-started-with-the-rest-api) endpoints for `users` and `orgs`
 - `Set` data structure and sort algorithm
-- Style with CSS (no Bootstrap or any UI/UX framework or library)
+- User-friendly UI with CSS (no Bootstrap or any UI/UX framework or library)
 
 ## Website URL and QR Code
 
@@ -60,4 +63,4 @@ Home Page
 
 ## Preview
 
-<div align="center"><img src="public/screenshot.png" width=620px> <img src="public/screenshot1.png" width=620px></div>
+<div align="center"><img src="public/screenshot.png" width=620px> <img src="public/screenshot1.png" width=620px> <img src="public/screenshot2.png" width=620px></div>
