@@ -41,7 +41,6 @@ Home Page
 -> Input Name(s)    -> Repo List -> Select Criterion -> (Updated) Repo List
 -> Select Criterion -> Input Name(s)                 -> Repo List
                                                      -> Repo Modal
-                                         
 ```
 
 ## Practices
