@@ -16,6 +16,7 @@ body{
 .header{
   position: sticky;
   top: 0;
+  z-index: 10;
 }
 
 .title{
@@ -154,21 +155,21 @@ body{
 }
 
 @keyframes spin{
-	0%{transform: rotate(0deg);}
-	3%{transform: rotate(-15deg);}
-	6%{transform: rotate(-20deg);}
-	9%{transform: rotate(-23deg);}
-	12%{transform: rotate(-24deg);}
-	15%{transform: rotate(-20deg);}
-	30%{transform: rotate(360deg);}
-	33%{transform: rotate(375deg);}
-	36%{transform: rotate(380deg);}
-	39%{transform: rotate(383deg);}
-	42%{transform: rotate(384deg);}
-	45%{transform: rotate(380deg);}
+  0%{transform: rotate(0deg);}
+  3%{transform: rotate(-15deg);}
+  6%{transform: rotate(-20deg);}
+  9%{transform: rotate(-23deg);}
+  12%{transform: rotate(-24deg);}
+  15%{transform: rotate(-20deg);}
+  30%{transform: rotate(360deg);}
+  33%{transform: rotate(375deg);}
+  36%{transform: rotate(380deg);}
+  39%{transform: rotate(383deg);}
+  42%{transform: rotate(384deg);}
+  45%{transform: rotate(380deg);}
   50%{transform: rotate(360deg);}
 
-	100%{transform: rotate(360deg);}
+  100%{transform: rotate(360deg);}
 }
 
 .content{
@@ -243,10 +244,11 @@ body{
   width: 345px;
   box-sizing: border-box;
   display: none;
-	position: absolute;
+  position: absolute;
+  z-index: 3;
   box-shadow: 0 3px 13px #00000012;
-	border-radius: 10px;
-	padding: 15px;
+  border-radius: 10px;
+  padding: 15px;
   margin: 0px 0 0 -15px;
   background-color: #FAFBFC22;
   backdrop-filter: blur(7px);
