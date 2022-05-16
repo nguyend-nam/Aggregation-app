@@ -155,21 +155,21 @@ body{
 }
 
 @keyframes spin{
-  0%{transform: rotate(0deg);}
-  3%{transform: rotate(-15deg);}
-  6%{transform: rotate(-20deg);}
-  9%{transform: rotate(-23deg);}
-  12%{transform: rotate(-24deg);}
-  15%{transform: rotate(-20deg);}
-  30%{transform: rotate(360deg);}
-  33%{transform: rotate(375deg);}
-  36%{transform: rotate(380deg);}
-  39%{transform: rotate(383deg);}
-  42%{transform: rotate(384deg);}
-  45%{transform: rotate(380deg);}
+	0%{transform: rotate(0deg);}
+	3%{transform: rotate(-15deg);}
+	6%{transform: rotate(-20deg);}
+	9%{transform: rotate(-23deg);}
+	12%{transform: rotate(-24deg);}
+	15%{transform: rotate(-20deg);}
+	30%{transform: rotate(360deg);}
+	33%{transform: rotate(375deg);}
+	36%{transform: rotate(380deg);}
+	39%{transform: rotate(383deg);}
+	42%{transform: rotate(384deg);}
+	45%{transform: rotate(380deg);}
   50%{transform: rotate(360deg);}
 
-  100%{transform: rotate(360deg);}
+	100%{transform: rotate(360deg);}
 }
 
 .content{
@@ -187,6 +187,33 @@ body{
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
+}
+
+.repo-item:nth-child(-n+3) .repo-title::after{
+  position: absolute;
+  padding: 1px 6px;
+  font-size: 15px;
+  margin: 0 0 0 -26px;
+  border-radius: 4px;
+  font-weight: bold;
+}
+
+.repo-item:first-child .repo-title::after{
+  content: "1";
+  color: #FFF;
+  background-color: #F9D923;
+}
+
+.repo-item:nth-child(2) .repo-title::after{
+  content: "2";
+  color: #FFF;
+  background-color: #A0BCC2;
+}
+
+.repo-item:nth-child(3) .repo-title::after{
+  content: "3";
+  color: #FFF;
+  background-color: #FF7700;
 }
 
 .repo-item{
@@ -213,8 +240,12 @@ body{
   word-break: break-all;
   text-align: left;
 }
+.repo-title img{
+  height: 30px;
+  border-radius: 50%;
+}
 .repo-title h3{
-  margin: 0 5px 0 0;
+  margin: 0 3.5px 0 3.5px;
 }
 .repo-title a{
   color: #0078D4;
@@ -230,8 +261,12 @@ body{
 }
 
 .repo-description{
-  margin: 15px 0;
+  margin: 15px 0 14px;
   text-align: left;
+}
+
+.repo-item:hover > .repo-description{
+  opacity: 0;
 }
 
 .repo-overview{
@@ -244,11 +279,11 @@ body{
   width: 345px;
   box-sizing: border-box;
   display: none;
-  position: absolute;
-  z-index: 3;
+	position: absolute;
+  z-index: 1;
   box-shadow: 0 3px 13px #00000012;
-  border-radius: 10px;
-  padding: 15px;
+	border-radius: 10px;
+	padding: 15px;
   margin: 0px 0 0 -15px;
   background-color: #FAFBFC22;
   backdrop-filter: blur(7px);
@@ -257,7 +292,7 @@ body{
 
 .modal > div:nth-child(1){
   text-align: left;
-  margin-bottom: 5px;
+  margin-bottom: 12px;
 }
 
 .modal > div:nth-child(2){
@@ -359,6 +394,10 @@ body{
   .content{
     padding: 20px;
     font-size: 15px;
+  }
+
+  .repo-title img{
+    height: 25px;
   }
 
   .repo-item{

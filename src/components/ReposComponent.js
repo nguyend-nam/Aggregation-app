@@ -222,15 +222,17 @@ export default class UserReposComponent extends Component {
         var isFork = org["fork"];
         var type = org["owner"]["type"];
         var issues = org["open_issues"];
+        var avatar = org["owner"]["avatar_url"];
 
         return(
           <div key={org["id"]} className="repo-item">
             <div className="repo-title">
+              <img src={avatar}/>
               <h3><a href={url} target="_blank">{owner}/{reponame}</a></h3>
               <span>{visibility}</span>
             </div>
             <div className="modal">
-              <div>{description}</div>
+              <div>{(description == null)? "--":description}</div>
               <div>
                 <div>
                   <div><i className="fas fa-user"></i> {type}</div>
@@ -244,7 +246,7 @@ export default class UserReposComponent extends Component {
                 </div>
               </div>
             </div>
-            <div className="repo-description">{description}</div>
+            <div className="repo-description">{(description == null)? "--":description}</div>
             <div className="repo-overview">
               <div><i className="fas fa-code"></i> {language}</div>
               <div><i className="fas fa-star"></i> {stars}</div>
