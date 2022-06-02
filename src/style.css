@@ -1,0 +1,33 @@
+:root{
+    --white: #FFF;
+    --blue: #199BE2;
+    --light-blue: #50E6FF;
+    --dark-blue: #0D62AB;
+    --light-blue-border: #35C1F1;
+    --dark-blue-border: #0078D4;
+}
+
+body{
+    margin: 0;
+    padding: 0;
+    background-color: var(--white);
+}
+
+header{
+    padding: 15px 30px;
+    background-color: var(--white);
+    box-shadow: 0 3px 10px #00000020;
+}
+
+header a{
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: var(--blue);
+    width: max-content;
+}
+
+header h1{
+    margin: 0;
+    margin-left: 10px;
+}

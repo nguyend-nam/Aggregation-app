@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Aggregation App</title>
+	
+	<meta name="theme-color" content="#151828">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	
+	<link rel="stylesheet" type="text/css" href="style.css">
+</head>
+
+<body>
+	<header>
+        <a href="/">
+            <img src="https://raw.githubusercontent.com/NguyenD-Nam/Aggregation-app/main/public/icons.png" height="50px"><h1>Aggregation app</h1>
+        </a>
+    </header>
+    <div>
+        <input id="input" type="text" placeholder="octocat, dwarvesf, etc." autocomplete="off">
+        <button onclick="getInputVal()">-></button>
+    </div>
+    <div>
+        <button onclick="setSortCriteria('stars')">Stars</button>
+        <button onclick="setSortCriteria('popular')">Popular</button>
+        <button onclick="setSortCriteria('original')">Original</button>
+        <div id="sort_details"><b>Stars</b></div>
+    </div>
+    <div class="repos_container" id="repos_container">
+        
+    </div>
+	<script src="script.js"></script>
+</body>
+</html>
