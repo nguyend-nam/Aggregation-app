@@ -8,7 +8,7 @@
     --grey: #888;
     --light-grey: #EFEFEF;
     --shadow: #00000020;
-    --body-background: #F8F8F8;
+    --body-background: #F5F5F7;
 }
 
 body{
@@ -70,15 +70,24 @@ button{
     font-size: 17px;
 }
 
-.tool__bar button{
+.sort__btn{
     margin: 5px;
     font-size: 17px;
+}
+
+.sort__btn:first-child{
+    background-color: var(--light-blue);
+}
+
+.cur__sort{
+    background-color: var(--light-blue) !important;
 }
 
 .repos__container{
     width: max-content;
     margin: 0 auto;
     padding: 10px;
+    box-sizing: border-box;
 }
 
 .repo__card{
@@ -136,5 +145,35 @@ button{
     border-radius: 50%;
 }
 
-.repo__card > button{
+@media(max-width: 768px){
+    button {
+        cursor: default;
+    }
+    
+    .header {
+        padding: 10px 20px;
+    }
+    
+    header h1 {
+        font-size: 23px;
+    }
+    
+    .header a {
+        margin: 0 auto;
+    }
+    
+    .header img {
+        height: 50px;
+        width: 50px;
+    }
+    
+    .repos__container {
+        width: 100%;
+        box-sizing: border-box;
+    }
+    
+    .repo__card {
+        max-width: 100%;
+        box-sizing: border-box;
+    }
 }

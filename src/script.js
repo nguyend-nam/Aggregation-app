@@ -8,12 +8,25 @@ let repoIds = new Set();
 let curSortCriteria = 'stars';
 
 function setSortCriteria(criteria) {
+    let sortBtns = document.querySelectorAll('.sort__btn');
+    for(let i=0; i<sortBtns.length; i++) {
+        sortBtns[i].style.backgroundColor = 'var(--light-grey)';
+    }
+    if(criteria == 'stars') {
+        sortBtns[0].style.backgroundColor = 'var(--light-blue)';
+    }
+    else if(criteria == 'popular') {
+        sortBtns[1].style.backgroundColor = 'var(--light-blue)';
+    }
+    else {
+        sortBtns[2].style.backgroundColor = 'var(--light-blue)';
+    }
     if(criteria != curSortCriteria) {
         curSortCriteria = criteria;
         let sortInfo = document.createElement('b');
         sortInfo.innerText = curSortCriteria[0].toUpperCase() + curSortCriteria.slice(1);
     
-        sortDetails.innerHTML = '';
+        sortDetails.innerHTML = 'Current sort criteria: ';
         sortDetails.append(sortInfo);
         
         reposContainer.innerHTML = '';
@@ -133,7 +146,9 @@ function showRepos() {
         delButton.onclick = () => {
             delButton.parentNode.style.maxHeight = '0';
             delButton.parentNode.style.margin = '0';
-            
+            setTimeout(() => {
+                delButton.parentNode.remove();
+            }, 500);
         }
         
         /* Title of repo card */
