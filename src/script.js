@@ -1,6 +1,6 @@
 let input = document.getElementById('input');
-let reposContainer = document.getElementById('repos_container');
-let sortDetails = document.getElementById('sort_details');
+let reposContainer = document.getElementById('repos__container');
+let sortDetails = document.getElementById('sort__details');
 let curInputVal = '';
 let repoList = [];
 let displayedRepoList = [];
@@ -129,11 +129,10 @@ function showRepos() {
         
         /* Delete button */
         let delButton = document.createElement('button');
-        delButton.innerText = 'X';
+        delButton.innerHTML = '<i class="fas fa-times"></i>';
         delButton.onclick = () => {
             delButton.parentNode.style.maxHeight = '0';
             delButton.parentNode.style.margin = '0';
-            delButton.parentNode.style.padding = '0 10px';
             
         }
         
@@ -145,26 +144,32 @@ function showRepos() {
         
         /* Details of repo */
         let starsCount = document.createElement('div');
-        starsCount.innerText = displayedRepoList[i].stargazers_count;
-        let language = document.createElement('div');
-        language.innerText = (displayedRepoList[i].language == null)?'--':displayedRepoList[i].language;
-        let forksCount = document.createElement('div');
-        forksCount.innerText = displayedRepoList[i].forks_count;
+        starsCount.innerHTML = '<i class="fas fa-star"></i> ';
+        starsCount.append(displayedRepoList[i].stargazers_count);
         
-        let repoDetails = document.createElement('div');
-        repoDetails.classList.add('repo__details');
-        repoDetails.append(starsCount, language, forksCount);
+        let language = document.createElement('div');
+        language.innerHTML = '<i class="fas fa-code"></i> ';
+        language.append((displayedRepoList[i].language == null)?'--':displayedRepoList[i].language);
+        
+        let forksCount = document.createElement('div');
+        forksCount.innerHTML = '<i class="fas fa-code-branch"></i> ';
+        forksCount.append(displayedRepoList[i].forks_count);
         
         /* Avater of repo owner */
         let repoAvatar = document.createElement('img');
         repoAvatar.src = displayedRepoList[i].owner.avatar_url;
         
+        
+        let repoDetails = document.createElement('div');
+        repoDetails.classList.add('repo__details');
+        repoDetails.append(language, starsCount, forksCount);
+        
         let repoItemLeft = document.createElement('div');
         repoItemLeft.append(repoTitle);
         repoItemLeft.append(repoDetails);
         
-        repoItem.append(repoItemLeft);
         repoItem.append(repoAvatar);
+        repoItem.append(repoItemLeft);
         repoItem.append(delButton);
         fragment.append(repoItem);
         

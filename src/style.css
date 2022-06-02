@@ -5,18 +5,24 @@
     --dark-blue: #0D62AB;
     --light-blue-border: #35C1F1;
     --dark-blue-border: #0078D4;
+    --grey: #888;
+    --light-grey: #EFEFEF;
+    --shadow: #00000020;
+    --body-background: #F8F8F8;
 }
 
 body{
     margin: 0;
     padding: 0;
-    background-color: var(--white);
+    background-color: var(--body-background);
 }
 
 header{
     padding: 15px 30px;
     background-color: var(--white);
-    box-shadow: 0 3px 10px #00000020;
+    box-shadow: 0 3px 10px var(--shadow);
+    position: sticky;
+    top: 0;
 }
 
 header a{
@@ -25,6 +31,7 @@ header a{
     text-decoration: none;
     color: var(--blue);
     width: max-content;
+    font-family: 'Cabin';
 }
 
 header h1{
@@ -32,27 +39,102 @@ header h1{
     margin-left: 10px;
 }
 
+.tool__bar{
+    text-align: center;
+    margin: 15px 0;
+    font-family: 'Cabin';
+}
+
+.tool__bar > div:first-child{
+    margin-bottom: 10px;
+}
+
+input{
+    border: none;
+    font-size: 19px;
+    border-bottom: 1px solid var(--blue);
+    background-color: var(--body-background);
+}
+
+button{
+    border: none;
+    outline: none;
+    cursor: pointer;
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-family: 'Cabin';
+    color: var(--dark-blue);
+}
+
+#sort__details{
+    font-size: 17px;
+}
+
+.tool__bar button{
+    margin: 5px;
+    font-size: 17px;
+}
+
+.repos__container{
+    width: max-content;
+    margin: 0 auto;
+    padding: 10px;
+}
+
 .repo__card{
     overflow-y: hidden;
     max-height: 300px;
-    width: 400px;
-    margin: 0 0 10px;
+    width: 390px;
+    margin-bottom: 10px;
     padding: 0 10px;
-    box-shadow: 0 3px 10px #00000020;
-    transition: max-height 0.3s ease-in-out;
+    transition: max-height 0.35s ease-in-out;
     display: flex;
     align-items: flex-start;
     justify-content: space-between;
+    background-color: var(--white);
+    border-radius: 10px;
 }
 
 .repo__card > *{
-    margin: 10px 0;
+    margin: 25px 0;
 }
 
 .repo__card > div{
     width: 100%;
+    margin: 25px 10px;
 }
-.repo__card img{
+
+.repo__card > div > a{
+    font-size: 19px;
+    text-decoration: none;
+    color: var(--blue);
+    font-family: 'Cabin';
+    word-break: break-all;
+}
+
+.repo__card > div > div{
+    margin-top: 10px;
+    display: flex;
+}
+
+.repo__card > div > div > div{
+    padding: 4px 8px;
+    background-color: var(--light-grey);
+    border-radius: 20px;
+    color: var(--grey);
+    margin-right: 10px;
+    font-family: 'Cabin';
+}
+
+.repo__card > div > div > *{
+    padding: 5px;
+}
+
+.repo__card > img{
     width: 50px;
     height: 50px;
+    border-radius: 50%;
+}
+
+.repo__card > button{
 }
