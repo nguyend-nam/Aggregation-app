@@ -263,6 +263,7 @@ body{
 .repo-description{
   margin: 15px 0 14px;
   text-align: left;
+  word-wrap: break-word;
 }
 
 .repo-item:hover > .repo-description{
