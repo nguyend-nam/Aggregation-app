@@ -7,7 +7,7 @@ function Main(){
   const [buffer, setBuffer] = useState('');
   const [inputval, setInputValue] = useState('');
   const [sortcriteria, setSortcriteria] = useState('stars');
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
 
   const updateInputValue = (evnt) => {
     const val = evnt.target.value;

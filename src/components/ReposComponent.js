@@ -33,7 +33,7 @@ export default class UserReposComponent extends Component {
     let found = false;
     for(let i=0; i<namelist.length; i++){
       const reposCount = await this.getReposCount(namelist[i])
-      for(let j=1; j<=Math.ceil(reposCount/100); j++){
+      for(let j=1; j<=reposCount; j++){
         await fetch('https://api.github.com/users/' + namelist[i] + '/repos?page=' + j + '&per_page=100')
         .then(function(resp) {
           if (resp.ok) {
@@ -45,7 +45,7 @@ export default class UserReposComponent extends Component {
         }) // Convert data to json
         .then(
           data => {
-            if(data["message"] != "Not Found" && !data["message"].includes("API rate limit exceeded")){
+            if(data["message"] != "Not Found"){
               for(let k=0; k<data.length; k++){
                 // apilist.push(data[k])
                 if(idlist.has(data[k]["id"])) continue;
@@ -58,15 +58,10 @@ export default class UserReposComponent extends Component {
             }
           }
         )
-        .catch((error) => { console.log(error) })
-        .finally(()=>{
-          if(found) {
-            this.props.setLoading(false)
-          }
-        });
+        .catch((error) => { console.log(error) });
         // If no users found start fetching API endpoint for organizations
         if(found == false){
-          await fetch('https://api.github.com/orgs/' + namelist[i] + '/repos?page=' + j + '&per_page=100')
+          await fetch('https://api.github.com/orgs/' + namelist[i] + '/repos')
           .then(function(resp) {
             if (resp.ok) {
               return resp.json();
@@ -76,7 +71,7 @@ export default class UserReposComponent extends Component {
           }) // Convert data to json
           .then(
             data => {
-              if(data["message"] != "Not Found" && !data["message"].includes("API rate limit exceeded")){
+              if(data["message"] != "Not Found"){
                 for(let k=0; k<data.length; k++){
                   // apilist.push(data[k])
                   if(idlist.has(data[k]["id"])) continue;
@@ -89,16 +84,13 @@ export default class UserReposComponent extends Component {
               }
             }
           )
-          .catch((error) => { console.log(error) })
-          .finally(()=>{
-            this.props.setLoading(false)
-          });
+          .catch((error) => { console.log(error) });
         }
       }
     }
 
     this.setState({
-      totalorg: apilist
+      totalorg: apilist,
     })
     this.props.setLoading(false)
     if(this.props.sort == "stars"){
@@ -218,7 +210,7 @@ export default class UserReposComponent extends Component {
     if (this.props.loading) {
       return (
         <div className="startpage">
-          <img src="icons.png" height="45px" width="45px" alt="Aggregation App" />
+          <img src="icons.png" height="45px" width="45px" alt="Aggregation App" /><h2></h2>
         </div>
       );
     }
