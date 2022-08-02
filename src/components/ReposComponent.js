@@ -10,6 +10,9 @@ export default class UserReposComponent extends Component {
   // Lifecycle functions
   componentDidUpdate(prevProps){
     if (prevProps.name !== this.props.name) {
+      this.setState({
+        loading: true
+      })
       this.fetchorg();
     }
     else if ((prevProps.name === this.props.name && prevProps.sort !== this.props.sort)) {
