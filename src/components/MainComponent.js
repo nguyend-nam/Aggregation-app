@@ -7,6 +7,7 @@ function Main(){
   const [buffer, setBuffer] = useState('');
   const [inputval, setInputValue] = useState('');
   const [sortcriteria, setSortcriteria] = useState('stars');
+  const [isLoading, setIsLoading] = useState(false);
 
   const updateInputValue = (evnt) => {
     const val = evnt.target.value;
@@ -20,7 +21,10 @@ function Main(){
     }
   }
   const onKeyDown = (key) => {
-    if(key.charCode === 13) handleSubmit();
+    if(key.charCode === 13) {
+      setIsLoading(true)
+      handleSubmit();
+    }
   };
 
   return(
@@ -55,7 +59,7 @@ function Main(){
       </div>
     </div>
     <div className="content">
-      <OrgRepos name={inputval} sort={sortcriteria} />
+      <OrgRepos name={inputval} sort={sortcriteria} loading={isLoading} setLoading={setIsLoading} />
       <div className="intro">Input existing GitHub usernames and/or organization names into search bar to view repositories.<br/>
       If you want to search for <b>multiple</b> names, separate each of them by <b>comma</b>.</div>
     </div>

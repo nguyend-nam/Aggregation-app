@@ -2,7 +2,7 @@ import React, {Component} from "react";
 
 export default class UserReposComponent extends Component {
   state = {
-    loading: true,
+    loading: this.props.loading,
     totalorg: [], // for storing all repos
     org: [] // for rendering repos that fit sort criterion
   };
@@ -10,9 +10,6 @@ export default class UserReposComponent extends Component {
   // Lifecycle functions
   componentDidUpdate(prevProps){
     if (prevProps.name !== this.props.name) {
-      this.setState({
-        loading: true
-      })
       this.fetchorg();
     }
     else if ((prevProps.name === this.props.name && prevProps.sort !== this.props.sort)) {
@@ -62,10 +59,15 @@ export default class UserReposComponent extends Component {
             }
           }
         )
-        .catch((error) => { console.log(error) });
+        .catch((error) => { console.log(error) })
+        .finally(()=>{
+          if(found) {
+            this.props.setLoading(false)
+          }
+        });
         // If no users found start fetching API endpoint for organizations
         if(found == false){
-          await fetch('https://api.github.com/orgs/' + namelist[i] + '/repos')
+          await fetch('https://api.github.com/orgs/' + namelist[i] + '/repos?page=' + j + '&per_page=100')
           .then(function(resp) {
             if (resp.ok) {
               return resp.json();
@@ -88,7 +90,10 @@ export default class UserReposComponent extends Component {
               }
             }
           )
-          .catch((error) => { console.log(error) });
+          .catch((error) => { console.log(error) })
+          .finally(()=>{
+            this.props.setLoading(false)
+          });;
         }
       }
     }
