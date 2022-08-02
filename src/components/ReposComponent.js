@@ -17,7 +17,12 @@ export default class UserReposComponent extends Component {
   }
 
   async getReposCount(userName) {
-    const resp = await fetch('https://api.github.com/users/' + userName);
+    const resp = await fetch('https://api.github.com/users/' + userName, 
+    {
+      headers: {
+        authorization: "token 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"
+      }
+    });
     if (resp.ok) {
         const data = await resp.json();
         return data.public_repos;
@@ -34,7 +39,12 @@ export default class UserReposComponent extends Component {
     for(let i=0; i<namelist.length; i++){
       const reposCount = await this.getReposCount(namelist[i])
       for(let j=1; j<=Math.ceil(reposCount/100); j++){
-        await fetch('https://api.github.com/users/' + namelist[i] + '/repos?page=' + j + '&per_page=100')
+        await fetch('https://api.github.com/users/' + namelist[i] + '/repos?page=' + j + '&per_page=100', 
+        {
+          headers: {
+            authorization: "token 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"
+          }
+        })
         .then(function(resp) {
           if (resp.ok) {
             found = true;
@@ -61,7 +71,12 @@ export default class UserReposComponent extends Component {
         .catch((error) => { console.log(error) });
         // If no users found start fetching API endpoint for organizations
         if(found == false){
-          await fetch('https://api.github.com/orgs/' + namelist[i] + '/repos?page=' + j + '&per_page=100')
+          await fetch('https://api.github.com/orgs/' + namelist[i] + '/repos?page=' + j + '&per_page=100', 
+          {
+            headers: {
+              authorization: "token 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"
+            }
+          })
           .then(function(resp) {
             if (resp.ok) {
               return resp.json();
