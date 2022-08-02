@@ -2,7 +2,7 @@ import React, {Component} from "react";
 
 export default class UserReposComponent extends Component {
   state = {
-    limitExceeded: true,
+    limitExceeded: undefined,
     totalorg: [], // for storing all repos
     org: [] // for rendering repos that fit sort criterion
   };
@@ -34,7 +34,7 @@ export default class UserReposComponent extends Component {
     let found = false;
     for(let i=0; i<namelist.length; i++){
       const reposCount = await this.getReposCount(namelist[i])
-      for(let j=1; j<=reposCount; j++){
+      for(let j=1; j<=Math.ceil(reposCount/100); j++){
         await fetch('https://api.github.com/users/' + namelist[i] + '/repos?page=' + j + '&per_page=100')
         .then(function(resp) {
           if (resp.ok) {
@@ -59,6 +59,10 @@ export default class UserReposComponent extends Component {
                   idlist.add(data[k]["id"]);
                 }
               }
+            }else if(data["message"].includes("API rate limit exceeded")){
+              this.setState({
+                limitExceeded: true
+              })
             }
           }
         )
@@ -93,6 +97,10 @@ export default class UserReposComponent extends Component {
                     idlist.add(data[k]["id"]);
                   }
                 }
+              }else if(data["message"].includes("API rate limit exceeded")){
+                this.setState({
+                  limitExceeded: true
+                })
               }
             }
           )
