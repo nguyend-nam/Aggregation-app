@@ -2,7 +2,6 @@ import React, {Component} from "react";
 
 export default class UserReposComponent extends Component {
   state = {
-    limitExceeded: undefined,
     totalorg: [], // for storing all repos
     org: [] // for rendering repos that fit sort criterion
   };
@@ -47,9 +46,6 @@ export default class UserReposComponent extends Component {
         .then(
           data => {
             if(data["message"] != "Not Found" && !data["message"].includes("API rate limit exceeded")){
-              this.setState({
-                limitExceeded: false
-              })
               for(let k=0; k<data.length; k++){
                 // apilist.push(data[k])
                 if(idlist.has(data[k]["id"])) continue;
@@ -59,10 +55,6 @@ export default class UserReposComponent extends Component {
                   idlist.add(data[k]["id"]);
                 }
               }
-            }else if(data["message"].includes("API rate limit exceeded")){
-              this.setState({
-                limitExceeded: true
-              })
             }
           }
         )
@@ -85,9 +77,6 @@ export default class UserReposComponent extends Component {
           .then(
             data => {
               if(data["message"] != "Not Found" && !data["message"].includes("API rate limit exceeded")){
-                this.setState({
-                  limitExceeded: false
-                })
                 for(let k=0; k<data.length; k++){
                   // apilist.push(data[k])
                   if(idlist.has(data[k]["id"])) continue;
@@ -97,10 +86,6 @@ export default class UserReposComponent extends Component {
                     idlist.add(data[k]["id"]);
                   }
                 }
-              }else if(data["message"].includes("API rate limit exceeded")){
-                this.setState({
-                  limitExceeded: true
-                })
               }
             }
           )
@@ -234,13 +219,6 @@ export default class UserReposComponent extends Component {
       return (
         <div className="startpage">
           <img src="icons.png" height="45px" width="45px" alt="Aggregation App" />
-        </div>
-      );
-    }
-    else if (!this.props.loading && this.state.limitExceeded) {
-      return (
-        <div className="startpage">
-          <h2>Rate limit exceeded :(</h2>
         </div>
       );
     }
