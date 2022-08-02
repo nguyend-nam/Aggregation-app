@@ -17,6 +17,14 @@ export default class UserReposComponent extends Component {
     }
   }
 
+  async getReposCount(userName) {
+    const resp = await fetch('https://api.github.com/users/' + userName);
+    if (resp.ok) {
+        const data = await resp.json();
+        return data.public_repos;
+    }
+}
+
   // Firstly fetch API endpoint for users
   async fetchorg() {
     let apilist = [];
@@ -25,40 +33,15 @@ export default class UserReposComponent extends Component {
     const namelist = trimList.split(",");
     let found = false;
     for(let i=0; i<namelist.length; i++){
-
-    	await fetch('https://api.github.com/users/' + namelist[i] + '/repos')
-    	.then(function(resp) {
-        if (resp.ok) {
-          found = true;
-          return resp.json();
-        }
-        throw new Error('Something went wrong');
-        // return resp.json()
-      }) // Convert data to json
-      .then(
-        data => {
-          if(data["message"] != "Not Found"){
-            for(let k=0; k<data.length; k++){
-              // apilist.push(data[k])
-              if(idlist.has(data[k]["id"])) continue;
-              else{
-                // apilist = apilist.concat(data);
-                apilist.push(data[k])
-                idlist.add(data[k]["id"]);
-              }
-            }
-          }
-        }
-    	)
-      .catch((error) => { console.log(error) });
-      // If no users found start fetching API endpoint for organizations
-      if(found == false){
-        await fetch('https://api.github.com/orgs/' + namelist[i] + '/repos')
-      	.then(function(resp) {
+      const reposCount = await this.getReposCount(namelist[i])
+      for(let j=1; j<=reposCount; j++){
+        await fetch('https://api.github.com/users/' + namelist[i] + '/repos?page=' + j + '&per_page=100')
+        .then(function(resp) {
           if (resp.ok) {
+            found = true;
             return resp.json();
           }
-          // throw new Error('Something went wrong');
+          throw new Error('Something went wrong');
           // return resp.json()
         }) // Convert data to json
         .then(
@@ -75,8 +58,35 @@ export default class UserReposComponent extends Component {
               }
             }
           }
-      	)
+        )
         .catch((error) => { console.log(error) });
+        // If no users found start fetching API endpoint for organizations
+        if(found == false){
+          await fetch('https://api.github.com/orgs/' + namelist[i] + '/repos')
+          .then(function(resp) {
+            if (resp.ok) {
+              return resp.json();
+            }
+            // throw new Error('Something went wrong');
+            // return resp.json()
+          }) // Convert data to json
+          .then(
+            data => {
+              if(data["message"] != "Not Found"){
+                for(let k=0; k<data.length; k++){
+                  // apilist.push(data[k])
+                  if(idlist.has(data[k]["id"])) continue;
+                  else{
+                    // apilist = apilist.concat(data);
+                    apilist.push(data[k])
+                    idlist.add(data[k]["id"]);
+                  }
+                }
+              }
+            }
+          )
+          .catch((error) => { console.log(error) });
+        }
       }
     }
 
