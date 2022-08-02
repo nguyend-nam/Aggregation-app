@@ -33,7 +33,7 @@ export default class UserReposComponent extends Component {
     let found = false;
     for(let i=0; i<namelist.length; i++){
       const reposCount = await this.getReposCount(namelist[i])
-      for(let j=1; j<=reposCount; j++){
+      for(let j=1; j<=Math.ceil(reposCount/100); j++){
         await fetch('https://api.github.com/users/' + namelist[i] + '/repos?page=' + j + '&per_page=100')
         .then(function(resp) {
           if (resp.ok) {
@@ -61,7 +61,7 @@ export default class UserReposComponent extends Component {
         .catch((error) => { console.log(error) });
         // If no users found start fetching API endpoint for organizations
         if(found == false){
-          await fetch('https://api.github.com/orgs/' + namelist[i] + '/repos')
+          await fetch('https://api.github.com/orgs/' + namelist[i] + '/repos?page=' + j + '&per_page=100')
           .then(function(resp) {
             if (resp.ok) {
               return resp.json();
