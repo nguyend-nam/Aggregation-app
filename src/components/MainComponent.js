@@ -64,7 +64,7 @@ function Main(){
       If you want to search for <b>multiple</b> names, separate each of them by <b>comma</b>.</div>
     </div>
 
-    <a className="scrollup" id="scrollup" href="#top">&#8248;</a>
+    <a className="scrollup" id="scrollup" href="#top"><i className="fas fa-long-arrow-alt-up"></i></a>
     <Footer />
   </>
   );
