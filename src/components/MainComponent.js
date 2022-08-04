@@ -15,6 +15,7 @@ function Main(){
   }
   const handleSubmit = () => {
     if(buffer != ""){
+      setIsLoading(true)
       setInputValue(buffer);
       console.log(buffer);
       // console.log('Your input value is: ' + this.state.buffer);
@@ -22,7 +23,6 @@ function Main(){
   }
   const onKeyDown = (key) => {
     if(key.charCode === 13) {
-      setIsLoading(true)
       handleSubmit();
     }
   };
