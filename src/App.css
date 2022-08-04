@@ -294,6 +294,7 @@ body{
 .modal > div:nth-child(1){
   text-align: left;
   margin-bottom: 12px;
+  word-wrap: break-word;
 }
 
 .modal > div:nth-child(2){
@@ -312,7 +313,7 @@ body{
 }
 
 .repo-item:hover .modal {
-	display: block;
+  display: block;
 }
 
 .scrollup{
