@@ -61,13 +61,14 @@ function Main() {
             <code style={{
               height: 'max-content',
               padding: '3px',
-              border: '1px solid #00000028',
+              border: '1px solid #0002',
               backgroundColor: '#00000008',
               borderRadius: '5px',
-              color: '#0005',
+              color: '#00000038',
+              userSelect: 'none',
             }}>/</code>
-            <button onClick={handleSubmit} className="ml-md-1"><i className="fas fa-search"></i></button>
           </div>
+          <button onClick={handleSubmit} className="ml-md-1"><i className="fas fa-search"></i></button>
         </div>
 
       </div>

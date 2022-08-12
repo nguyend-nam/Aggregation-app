@@ -1,4 +1,4 @@
-import React, {Component} from "react";
+import React, { Component } from "react";
 
 export default class UserReposComponent extends Component {
   state = {
@@ -7,7 +7,7 @@ export default class UserReposComponent extends Component {
   };
 
   // Lifecycle functions
-  componentDidUpdate(prevProps){
+  componentDidUpdate(prevProps) {
     if (prevProps.name !== this.props.name) {
       this.fetchorg();
     }
@@ -19,10 +19,10 @@ export default class UserReposComponent extends Component {
   async getReposCount(userName) {
     const resp = await fetch('https://api.github.com/users/' + userName);
     if (resp.ok) {
-        const data = await resp.json();
-        return data.public_repos;
+      const data = await resp.json();
+      return data.public_repos;
     }
-}
+  }
 
   // Firstly fetch API endpoint for users
   async fetchorg() {
@@ -31,51 +31,25 @@ export default class UserReposComponent extends Component {
     let trimList = this.props.name.split(' ').join('');
     const namelist = trimList.split(",");
     let found = false;
-    for(let i=0; i<namelist.length; i++){
+    for (let i = 0; i < namelist.length; i++) {
       const reposCount = await this.getReposCount(namelist[i])
-      for(let j=1; j<=Math.ceil(reposCount/100); j++){
+      for (let j = 1; j <= Math.ceil(reposCount / 100); j++) {
         await fetch('https://api.github.com/users/' + namelist[i] + '/repos?page=' + j + '&per_page=100')
-        .then(function(resp) {
-          if (resp.ok) {
-            found = true;
-            return resp.json();
-          }
-          throw new Error('Something went wrong');
-          // return resp.json()
-        }) // Convert data to json
-        .then(
-          data => {
-            if(data["message"] != "Not Found"){
-              for(let k=0; k<data.length; k++){
-                // apilist.push(data[k])
-                if(idlist.has(data[k]["id"])) continue;
-                else{
-                  // apilist = apilist.concat(data);
-                  apilist.push(data[k])
-                  idlist.add(data[k]["id"]);
-                }
-              }
-            }
-          }
-        )
-        .catch((error) => { console.log(error) });
-        // If no users found start fetching API endpoint for organizations
-        if(found == false){
-          await fetch('https://api.github.com/orgs/' + namelist[i] + '/repos?page=' + j + '&per_page=100')
-          .then(function(resp) {
+          .then(function (resp) {
             if (resp.ok) {
+              found = true;
               return resp.json();
             }
-            // throw new Error('Something went wrong');
+            throw new Error('Something went wrong');
             // return resp.json()
           }) // Convert data to json
           .then(
             data => {
-              if(data["message"] != "Not Found"){
-                for(let k=0; k<data.length; k++){
+              if (data["message"] != "Not Found") {
+                for (let k = 0; k < data.length; k++) {
                   // apilist.push(data[k])
-                  if(idlist.has(data[k]["id"])) continue;
-                  else{
+                  if (idlist.has(data[k]["id"])) continue;
+                  else {
                     // apilist = apilist.concat(data);
                     apilist.push(data[k])
                     idlist.add(data[k]["id"]);
@@ -85,6 +59,32 @@ export default class UserReposComponent extends Component {
             }
           )
           .catch((error) => { console.log(error) });
+        // If no users found start fetching API endpoint for organizations
+        if (found == false) {
+          await fetch('https://api.github.com/orgs/' + namelist[i] + '/repos?page=' + j + '&per_page=100')
+            .then(function (resp) {
+              if (resp.ok) {
+                return resp.json();
+              }
+              // throw new Error('Something went wrong');
+              // return resp.json()
+            }) // Convert data to json
+            .then(
+              data => {
+                if (data["message"] != "Not Found") {
+                  for (let k = 0; k < data.length; k++) {
+                    // apilist.push(data[k])
+                    if (idlist.has(data[k]["id"])) continue;
+                    else {
+                      // apilist = apilist.concat(data);
+                      apilist.push(data[k])
+                      idlist.add(data[k]["id"]);
+                    }
+                  }
+                }
+              }
+            )
+            .catch((error) => { console.log(error) });
         }
       }
     }
@@ -93,30 +93,30 @@ export default class UserReposComponent extends Component {
       totalorg: apilist,
     })
     this.props.setLoading(false)
-    if(this.props.sort == "stars"){
+    if (this.props.sort == "stars") {
       let n = apilist.length;
       for (let i = 1; i < n; i++) {
-          let current = apilist[i];
-          let j = i-1;
-          while ((j > -1) && (current["stargazers_count"] > apilist[j]["stargazers_count"])) {
-              apilist[j+1] = apilist[j];
-              j--;
-          }
-          apilist[j+1] = current;
+        let current = apilist[i];
+        let j = i - 1;
+        while ((j > -1) && (current["stargazers_count"] > apilist[j]["stargazers_count"])) {
+          apilist[j + 1] = apilist[j];
+          j--;
+        }
+        apilist[j + 1] = current;
       }
     }
-    if(this.props.sort == "popular"){
+    if (this.props.sort == "popular") {
       let n = apilist.length;
       for (let i = 1; i < n; i++) {
-          let current = apilist[i];
-          let j = i-1;
-          while ((j > -1) && (
-            (current["stargazers_count"] + current["forks_count"] + current["watchers_count"]) > (apilist[j]["stargazers_count"] + apilist[j]["forks_count"] + apilist[j]["watchers_count"]))
-          ) {
-              apilist[j+1] = apilist[j];
-              j--;
-          }
-          apilist[j+1] = current;
+        let current = apilist[i];
+        let j = i - 1;
+        while ((j > -1) && (
+          (current["stargazers_count"] + current["forks_count"] + current["watchers_count"]) > (apilist[j]["stargazers_count"] + apilist[j]["forks_count"] + apilist[j]["watchers_count"]))
+        ) {
+          apilist[j + 1] = apilist[j];
+          j--;
+        }
+        apilist[j + 1] = current;
       }
     }
     this.setState({
@@ -124,23 +124,23 @@ export default class UserReposComponent extends Component {
     })
 
     let newapilist = [];
-    if(this.props.sort == "original"){
+    if (this.props.sort == "original") {
       let n = apilist.length;
       for (let i = 0; i < n; i++) {
-          let current = apilist[i];
-          if(current["fork"] === false) newapilist.push(current);
+        let current = apilist[i];
+        if (current["fork"] === false) newapilist.push(current);
       }
       let m = newapilist.length;
       for (let i = 1; i < m; i++) {
-          let current = newapilist[i];
-          let j = i-1;
-          while ((j > -1) && (
-            (current["stargazers_count"] + current["forks_count"] + current["watchers_count"]) > (newapilist[j]["stargazers_count"] + newapilist[j]["forks_count"] + newapilist[j]["watchers_count"]))
-          ) {
-              newapilist[j+1] = newapilist[j];
-              j--;
-          }
-          newapilist[j+1] = current;
+        let current = newapilist[i];
+        let j = i - 1;
+        while ((j > -1) && (
+          (current["stargazers_count"] + current["forks_count"] + current["watchers_count"]) > (newapilist[j]["stargazers_count"] + newapilist[j]["forks_count"] + newapilist[j]["watchers_count"]))
+        ) {
+          newapilist[j + 1] = newapilist[j];
+          j--;
+        }
+        newapilist[j + 1] = current;
       }
       this.setState({
         org: newapilist
@@ -148,32 +148,32 @@ export default class UserReposComponent extends Component {
     }
   }
 
-  sortRepos(){
+  sortRepos() {
     let apilist = this.state.totalorg;
-    if(this.props.sort == "stars"){
+    if (this.props.sort == "stars") {
       let n = apilist.length;
       for (let i = 1; i < n; i++) {
-          let current = apilist[i];
-          let j = i-1;
-          while ((j > -1) && (current["stargazers_count"] > apilist[j]["stargazers_count"])) {
-              apilist[j+1] = apilist[j];
-              j--;
-          }
-          apilist[j+1] = current;
+        let current = apilist[i];
+        let j = i - 1;
+        while ((j > -1) && (current["stargazers_count"] > apilist[j]["stargazers_count"])) {
+          apilist[j + 1] = apilist[j];
+          j--;
+        }
+        apilist[j + 1] = current;
       }
     }
-    if(this.props.sort == "popular"){
+    if (this.props.sort == "popular") {
       let n = apilist.length;
       for (let i = 1; i < n; i++) {
-          let current = apilist[i];
-          let j = i-1;
-          while ((j > -1) && (
-            (current["stargazers_count"] + current["forks_count"] + current["watchers_count"]) > (apilist[j]["stargazers_count"] + apilist[j]["forks_count"] + apilist[j]["watchers_count"]))
-          ) {
-              apilist[j+1] = apilist[j];
-              j--;
-          }
-          apilist[j+1] = current;
+        let current = apilist[i];
+        let j = i - 1;
+        while ((j > -1) && (
+          (current["stargazers_count"] + current["forks_count"] + current["watchers_count"]) > (apilist[j]["stargazers_count"] + apilist[j]["forks_count"] + apilist[j]["watchers_count"]))
+        ) {
+          apilist[j + 1] = apilist[j];
+          j--;
+        }
+        apilist[j + 1] = current;
       }
     }
     this.setState({
@@ -181,23 +181,23 @@ export default class UserReposComponent extends Component {
     })
 
     let newapilist = [];
-    if(this.props.sort == "original"){
+    if (this.props.sort == "original") {
       let n = apilist.length;
       for (let i = 0; i < n; i++) {
-          let current = apilist[i];
-          if(current["fork"] === false) newapilist.push(current);
+        let current = apilist[i];
+        if (current["fork"] === false) newapilist.push(current);
       }
       let m = newapilist.length;
       for (let i = 1; i < m; i++) {
-          let current = newapilist[i];
-          let j = i-1;
-          while ((j > -1) && (
-            (current["stargazers_count"] + current["forks_count"] + current["watchers_count"]) > (newapilist[j]["stargazers_count"] + newapilist[j]["forks_count"] + newapilist[j]["watchers_count"]))
-          ) {
-              newapilist[j+1] = newapilist[j];
-              j--;
-          }
-          newapilist[j+1] = current;
+        let current = newapilist[i];
+        let j = i - 1;
+        while ((j > -1) && (
+          (current["stargazers_count"] + current["forks_count"] + current["watchers_count"]) > (newapilist[j]["stargazers_count"] + newapilist[j]["forks_count"] + newapilist[j]["watchers_count"]))
+        ) {
+          newapilist[j + 1] = newapilist[j];
+          j--;
+        }
+        newapilist[j + 1] = current;
       }
       this.setState({
         org: newapilist
@@ -216,7 +216,7 @@ export default class UserReposComponent extends Component {
     }
 
     var orgs;
-    if(this.state.org !== undefined){
+    if (this.state.org !== undefined) {
       orgs = this.state.org.map((org) => {
         var owner = org["owner"]["login"];
         var reponame = org["name"];
@@ -224,7 +224,7 @@ export default class UserReposComponent extends Component {
         var visibility = org["visibility"];
         var url = org["html_url"];
         var language = "--";
-        if(org["language"] != null) language = org["language"];
+        if (org["language"] != null) language = org["language"];
         var stars = org["stargazers_count"];
         var forks = org["forks_count"];
         var watchs = org["watchers_count"];
@@ -233,15 +233,15 @@ export default class UserReposComponent extends Component {
         var issues = org["open_issues"];
         var avatar = org["owner"]["avatar_url"];
 
-        return(
+        return (
           <div key={org["id"]} className="repo-item">
             <div className="repo-title">
-              <img src={avatar}/>
+              <img src={avatar} />
               <h3><a href={url} target="_blank">{owner}/{reponame}</a></h3>
               <span>{visibility}</span>
             </div>
             <div className="modal">
-              <div>{(description == null)? "--":description}</div>
+              <div>{(description == null) ? "--" : description}</div>
               <div>
                 <div>
                   <div><i className="fas fa-user"></i> {type}</div>
@@ -255,7 +255,7 @@ export default class UserReposComponent extends Component {
                 </div>
               </div>
             </div>
-            <div className="repo-description">{(description == null)? "--":description}</div>
+            <div className="repo-description">{(description == null) ? "--" : description}</div>
             <div className="repo-overview">
               <div><i className="fas fa-code"></i> {language}</div>
               <div><i className="fas fa-star"></i> {stars}</div>
