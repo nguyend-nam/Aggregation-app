@@ -28,8 +28,8 @@ function Main() {
   };
 
   const slashFunction = useCallback((event) => {
-    event.preventDefault();
     if (event.key === "/") {
+      event.preventDefault()
       searchInputRef.current.focus()
     }
   }, []);
