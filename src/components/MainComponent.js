@@ -28,9 +28,9 @@ function Main() {
   };
 
   const slashFunction = useCallback((event) => {
+    event.preventDefault();
     if (event.key === "/") {
       searchInputRef.current.focus()
-      searchInputRef.current.value = searchInputRef.current.value.slice(0, -1)
     }
   }, []);
 
