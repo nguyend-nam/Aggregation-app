@@ -30,6 +30,7 @@ function Main() {
   const slashFunction = useCallback((event) => {
     if (event.key === "/") {
       searchInputRef.current.focus()
+      searchInputRef.current.value = searchInputRef.current.value.slice(0, -1)
     }
   }, []);
 
@@ -57,6 +58,14 @@ function Main() {
             <input ref={searchInputRef} required={true} className="input" id="name" type="text" placeholder="octocat, dwarvesf, etc."
               onInput={updateInputValue}
               onKeyPress={onKeyDown} />
+            <code style={{
+              height: 'max-content',
+              padding: '3px',
+              border: '1px solid #00000028',
+              backgroundColor: '#00000008',
+              borderRadius: '5px',
+              color: '#0005',
+            }}>/</code>
             <button onClick={handleSubmit} className="ml-md-1"><i className="fas fa-search"></i></button>
           </div>
         </div>
